@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 // rootReducer from "./Redux/reducers/reducer";
 import { loadState, saveState } from "./localStorage";
 // /import throttle from "lodash/throttle";
-import App from "./App";
+import App from "./app";
 //import * as serviceWorker from "./serviceWorker";
 
 const persistedState = loadState();

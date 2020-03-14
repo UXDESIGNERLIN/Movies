@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.movies-list-card a:nth-child(even) {
+.movies-list-wrapper a:nth-child(odd) div {
   background-color: lightgray;
 }
 

@@ -11,9 +11,13 @@ function jsonFetch(url) {
 export function getCatogories() {
   return jsonFetch(
     `${base_url}genre/movie/list?api_key=${api_key}&language=en-US}`
-  ).then(json => {
-    return json.genres;
-  });
+  )
+    .then(json => {
+      return json.genres;
+    })
+    .catch(err => {
+      console.log("error", err);
+    });
 }
 
 export function getMoviesByCategoryId(categoryId) {
@@ -39,8 +43,10 @@ export function getMovieByMovieId(movieId) {
     .then(json => {
       return {
         id: json.id,
-        image_path: json.poster_path,
-        name: json.title
+        image_path: `https://image.tmdb.org/t/p/w500/${json.poster_path}`,
+        name: json.title,
+        overview: json.overview,
+        release_date: json.release_date
       };
     })
     .catch(err => {

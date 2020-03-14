@@ -21,14 +21,14 @@ class MoviesList extends Component {
     return (
       <div>
         <h1>{this.props.location.name}</h1>
-        <div class="movies-list-wrapper">
+        <div className="movies-list-wrapper">
           {this.state.movies.map(movies => {
             return (
-              <Link to={`/movie/${movies.id}`}>
+              <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
                 <div className="movies-list-card" key={movies.id.toString()}>
-                  <div class="image-container">
+                  <div className="image-container">
                     <img
-                      class="image"
+                      className="image"
                       src={movies.image_path}
                       alt={movies.name}
                     />
