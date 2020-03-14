@@ -1,0 +1,17 @@
+.App {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  min-height: 90vh;
+  padding-bottom: 6rem;
+}
+
+.page-container {
+  border: 1px solid black;
+  height: 5rem;
+}
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
