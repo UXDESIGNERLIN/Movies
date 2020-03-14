@@ -32,8 +32,9 @@ class Home extends Component {
                   pathname: `/category/${category.id}`,
                   name: category.name
                 }}
+                key={category.id.toString()}
               >
-                <div key={category.id.toString()}>
+                <div>
                   <div className="category-card">
                     <p className="category-name">{category.name}</p>
                   </div>

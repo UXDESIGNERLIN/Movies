@@ -1,23 +1,24 @@
 import { combineReducers } from "redux";
 
 const defaultState = {
-  categories: [
+  moviesInCart: [
     {
       movieId: "",
-      movieName: ""
+      movieName: "",
+      quantity: null
     }
   ]
 };
 
-const categories = (state = defaultState.categories, action) => {
+const rootReducer = (state = defaultState.moviesInCart, action) => {
   switch (action.type) {
-    case "Set_Categories":
-      return { ...state, action };
+    case "ADD_TO_CART":
+      return [...state, action.movie];
     default:
       return state;
   }
 };
 
-const rootReducer = combineReducers({ categories });
+//const rootReducer = combineReducers({ cart });
 
 export default rootReducer;

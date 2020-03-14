@@ -1,17 +1,14 @@
-//import Form from "./js/components/Form";
-
 import React from "react";
 import ReactDOM from "react-dom";
-//import { createStore } from "redux";
-//import { Provider } from "react-redux";
-// rootReducer from "./Redux/reducers/reducer";
-import { loadState, saveState } from "./localStorage";
-// /import throttle from "lodash/throttle";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./Redux/reducers/reducer";
 import App from "./app";
-//import * as serviceWorker from "./serviceWorker";
 
-const persistedState = loadState();
-
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 /*const store = createStore(
   rootReducer,
   //persistedState,
@@ -25,7 +22,8 @@ store.subscribe(
 );*/
 
 ReactDOM.render(
-  <App />,
-
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );

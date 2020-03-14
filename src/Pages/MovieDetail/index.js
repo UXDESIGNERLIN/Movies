@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { getMovieByMovieId } from "../../api";
 import "./style.css";
+import { connect } from "react-redux";
+import { addMovieToCart } from "../../Redux/actions/actions";
+import Cart from "../Cart";
 
 class MovieDetail extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { movie: {} };
+    this.state = { movie: {}, showCart: false };
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
@@ -15,28 +18,49 @@ class MovieDetail extends Component {
     });
   }
 
+  addToCart(movie) {
+    this.props.addMovieToCart({
+      movieId: movie.id,
+      movieName: movie.name,
+      quantity: 1
+    });
+    this.setState({ showCart: true });
+  }
+
   render() {
-    const movie = this.state.movie;
+    const { movie, showCart } = this.state;
     return (
-      <div className="movie-detail-card">
-        <div className="movie-detail-card-header">
-          <h1>{movie.name}</h1>
-          <p>({movie.release_date})</p>
-        </div>
-        <div className="movie-detail-card-body">
-          <div className="movie-detail-image-container">
-            <img className="image" src={movie.image_path} alt={movie.name} />
+      <>
+        <div className="movie-detail-card">
+          <div className="movie-detail-card-header">
+            <h1>{movie.name}</h1>
+            <p>({movie.release_date})</p>
           </div>
-          <div className="movie-detail-card-content-container">
-            <div className="movie-detail-overview">{movie.overview}</div>
-            <button className="movie-detail-cart-button button">
-              ADD TO CART
-            </button>
+          <div className="movie-detail-card-body">
+            <div className="movie-detail-image-container">
+              <img className="image" src={movie.image_path} alt={movie.name} />
+            </div>
+            <div className="movie-detail-card-content-container">
+              <div className="movie-detail-overview">{movie.overview}</div>
+              <button
+                onClick={() => this.addToCart(movie)}
+                className="movie-detail-cart-button button"
+              >
+                ADD TO CART
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+        {showCart && <Cart />}
+      </>
     );
   }
 }
 
-export default MovieDetail;
+const mapDispatchToProps = dispatch => ({
+  addMovieToCart: movie => {
+    dispatch(addMovieToCart(movie));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(MovieDetail);

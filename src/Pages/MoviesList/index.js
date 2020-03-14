@@ -25,7 +25,7 @@ class MoviesList extends Component {
           {this.state.movies.map(movies => {
             return (
               <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
-                <div className="movies-list-card" key={movies.id.toString()}>
+                <div className="movies-list-card">
                   <div className="image-container">
                     <img
                       className="image"
