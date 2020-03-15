@@ -4,6 +4,7 @@ import Home from "./Pages/Home";
 import MoviesList from "./Pages/MoviesList";
 import MovieDetail from "./Pages/MovieDetail";
 import Header from "./Components/Header";
+import Cart from "./Pages/Cart";
 import "./style.css";
 import Footer from "./Components/Footer";
 
@@ -18,8 +19,9 @@ class App extends Component {
     return (
       <div>
         <div className="App">
-          <Header />
           <Router>
+            <Header />
+
             <Switch>
               <Route path="/" exact component={Home} />
               <Route
@@ -28,6 +30,7 @@ class App extends Component {
                 component={MoviesList}
               />
               <Route path="/movie/:movieId" exact component={MovieDetail} />
+              <Route path="/cart" exact component={Cart} />
             </Switch>
 
             <Footer />
