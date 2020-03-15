@@ -65,7 +65,7 @@ class MovieDetail extends Component {
             </div>
           </div>
         </div>
-        <div /*ref={cartRef}*/ id="cart">
+        <div id="cart">
           {showCart && <Cart showCart={() => this.closeCart()} />}
         </div>
       </>

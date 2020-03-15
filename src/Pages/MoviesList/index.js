@@ -7,6 +7,7 @@ class MoviesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      //categoryName: "",
       movies: []
     };
   }
@@ -20,7 +21,7 @@ class MoviesList extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.location.name}</h1>
+        <h1>{this.props.location.search.substring(1)}</h1>
         <div className="movies-list-wrapper">
           {this.state.movies.map(movies => {
             return (

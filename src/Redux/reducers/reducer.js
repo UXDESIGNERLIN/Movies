@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+//import { combineReducers } from "redux";
 
 const defaultState = {
   moviesInCart: [
@@ -27,6 +27,15 @@ const rootReducer = (state = [], action) => {
       });
 
       return newState;
+    case "UPDATE_QUANTITY":
+      let updateState = state.map(el => {
+        if (el.movieId === action.movieId) {
+          el.quantity = action.quantity;
+        }
+        return el;
+      });
+      console.log(updateState);
+      return updateState;
     default:
       return state;
   }

@@ -30,6 +30,12 @@
   justify-content: center;
 }
 
+.cart-quantity {
+  border: 1px solid lightgray;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
 .cart-name {
   color: black;
   height: 0;

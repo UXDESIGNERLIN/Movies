@@ -30,7 +30,7 @@ class Home extends Component {
               <Link
                 to={{
                   pathname: `/category/${category.id}`,
-                  name: category.name
+                  search: category.name
                 }}
                 key={category.id.toString()}
               >
