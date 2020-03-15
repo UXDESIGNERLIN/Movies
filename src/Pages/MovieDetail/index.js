@@ -10,6 +10,8 @@ class MovieDetail extends Component {
     super(props);
     this.state = { movie: {}, showCart: false };
     this.addToCart = this.addToCart.bind(this);
+    this.closeCart = this.closeCart.bind(this);
+    this.cartRef = React.createRef();
   }
 
   componentDidMount() {
@@ -22,9 +24,21 @@ class MovieDetail extends Component {
     this.props.addMovieToCart({
       movieId: movie.id,
       movieName: movie.name,
+      movie_image: movie.image_path,
       quantity: 1
     });
     this.setState({ showCart: true });
+    this.scrollToCart();
+  }
+
+  scrollToCart() {
+    setTimeout(() => {
+      window.scrollTo(0, document.getElementById("cart").offsetTop);
+    }, 0);
+  }
+
+  closeCart() {
+    this.setState({ showCart: false });
   }
 
   render() {
@@ -51,7 +65,9 @@ class MovieDetail extends Component {
             </div>
           </div>
         </div>
-        {showCart && <Cart />}
+        <div /*ref={cartRef}*/ id="cart">
+          {showCart && <Cart showCart={() => this.closeCart()} />}
+        </div>
       </>
     );
   }

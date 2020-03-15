@@ -5,15 +5,28 @@ const defaultState = {
     {
       movieId: "",
       movieName: "",
+      movie_image: "",
       quantity: null
     }
   ]
 };
 
-const rootReducer = (state = defaultState.moviesInCart, action) => {
+const movieExists = (movies, movie) => {
+  return movies.find(el => el.movieId === movie.movieId);
+};
+
+const rootReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      return [...state, action.movie];
+      if (movieExists(state, action.movie)) {
+        return state;
+      } else return [action.movie, ...state];
+    case "REMOVE_FROM_CART":
+      let newState = state.filter(el => {
+        return el.movieId !== action.movie.movieId;
+      });
+
+      return newState;
     default:
       return state;
   }
