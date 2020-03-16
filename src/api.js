@@ -66,11 +66,14 @@ export function searchMoviesByMovieName(movieName, pageNumber) {
     `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${api_key}&language=en-US&page=${pageNumber}&include_adult=false`
   )
     .then(json => {
-      return json.results.map(movie => ({
-        id: movie.id,
-        image_path: imageUrl(movie.poster_path),
-        name: movie.title
-      }));
+      return [
+        json.total_pages,
+        json.results.map(movie => ({
+          id: movie.id,
+          image_path: imageUrl(movie.poster_path),
+          name: movie.title
+        }))
+      ];
     })
     .catch(err => {
       console.log("error", err);

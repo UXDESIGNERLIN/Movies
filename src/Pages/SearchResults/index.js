@@ -1,29 +1,57 @@
 import React, { Component } from "react";
 import { searchMoviesByMovieName } from "../../api";
-import { withRouter } from "react-router-dom";
-import MoviesList from "../../Components/MoviesList";
+
+import { Link } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
+//import MoviesList from "../../Components/MoviesList";
 
 class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movieResults: []
+      movieResults: [],
+      totalPages: null,
+      pageNumber: 1
     };
+    this.myRef = React.createRef();
+    this.callBackRef = this.callBackRef.bind(this);
   }
 
-  componentDidMount() {
-    searchMoviesByMovieName(this.props.match.params.keyWords, 1).then(json => {
-      this.setState({ movieResults: json });
+  callBackRef(node) {
+    if (this.myRef.current) this.myRef.current.disconnect();
+    this.myRef.current = new IntersectionObserver(entries => {
+      if (
+        entries[0].isIntersecting &&
+        this.state.pageNumber <= this.state.totalPages
+      ) {
+        this.setState({ pageNumber: this.state.pageNumber + 1 });
+        setTimeout(() => {
+          this.searchMovies();
+
+          window.scrollTo(0, document.getElementById("first").offsetTop);
+        }, 1000);
+        //this.searchMovies();
+      }
+    });
+    if (node) this.myRef.current.observe(node);
+    //console.log("no", node);
+  }
+
+  searchMovies() {
+    searchMoviesByMovieName(
+      this.props.match.params.keyWords,
+      this.state.pageNumber
+    ).then(json => {
+      this.setState({ totalPages: json[0], movieResults: json[1] });
     });
   }
+  componentDidMount() {
+    this.searchMovies();
+  }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.keyWords !== this.props.match.params.keyWords) {
-      searchMoviesByMovieName(this.props.match.params.keyWords, 1).then(
-        json => {
-          this.setState({ movieResults: json });
-        }
-      );
+      this.searchMovies();
     }
   }
 
@@ -31,13 +59,51 @@ class SearchResults extends Component {
     return (
       <div>
         <div className="movies-list-wrapper">
-          <MoviesList movies={this.state.movieResults} />
-          {this.props.match.params.keyWords === "" &&
-            this.props.history.goBack()}
+          <div className="movies-list-wrapper">
+            {this.state.movieResults.map((movies, index) => {
+              if (this.state.movieResults.length === index + 1) {
+                return (
+                  <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
+                    <div
+                      ref={node => this.callBackRef(node)}
+                      className="movies-list-card"
+                    >
+                      <div className="image-container">
+                        <img
+                          className="image"
+                          src={movies.image_path}
+                          alt={movies.name}
+                        />
+                      </div>
+                      <div>
+                        <p className="movies-list-name">{movies.name}</p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              } else
+                return (
+                  <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
+                    <div id="first" className="movies-list-card">
+                      <div className="image-container">
+                        <img
+                          className="image"
+                          src={movies.image_path}
+                          alt={movies.name}
+                        />
+                      </div>
+                      <div>
+                        <p className="movies-list-name">{movies.name}</p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+            })}
+          </div>
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(SearchResults);
+export default SearchResults;

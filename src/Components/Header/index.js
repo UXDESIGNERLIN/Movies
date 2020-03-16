@@ -11,7 +11,7 @@ function Header(props) {
     }, 100);
   };
   return (
-    <div className="page-container">
+    <div className="page-container header">
       <Link to="/">
         <button className="button">Home</button>
       </Link>
