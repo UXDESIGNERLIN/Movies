@@ -8,11 +8,12 @@ export const removeMovieFromCart = movie => ({
   movie
 });
 
-export const updateMovieQuantity = (movieId, quantity) => (
-  console.log(quantity),
-  {
-    type: "UPDATE_QUANTITY",
-    movieId,
-    quantity
-  }
-);
+export const updateMovieQuantity = (movieId, quantity) => ({
+  type: "UPDATE_QUANTITY",
+  movieId,
+  quantity
+});
+
+export const emptyCart = () => ({
+  type: "EMPTY_CART"
+});

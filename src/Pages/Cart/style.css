@@ -8,37 +8,3 @@
   display: flex;
   justify-content: space-between;
 }
-
-.cart-close-button {
-  height: 50%;
-}
-
-.cart-item-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
-.cart-image-container {
-  height: 200px;
-  width: 200px;
-}
-
-.cart-content-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.cart-quantity {
-  border: 1px solid lightgray;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-}
-
-.cart-name {
-  color: black;
-  height: 0;
-  font-size: 1rem;
-  font-weight: 700;
-}

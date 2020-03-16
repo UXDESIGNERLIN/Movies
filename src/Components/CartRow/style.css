@@ -41,4 +41,5 @@
   height: 0;
   font-size: 1rem;
   font-weight: 700;
+  min-width: 500px;
 }

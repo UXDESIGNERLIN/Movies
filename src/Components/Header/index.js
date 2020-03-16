@@ -1,18 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Cart from "../../Pages/Cart";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 
-const redirectToCart = () => {
-  this.props.history.push(`/cart`);
-};
+import "./style.css";
 
-function Header() {
+function Header(props) {
+  const handleSearchChange = e => {
+    e.persist();
+    setTimeout(() => {
+      props.history.push(`/search/${e.target.value}`);
+    }, 100);
+  };
   return (
     <div className="page-container">
+      <Link to="/">
+        <button className="button">Home</button>
+      </Link>
+
+      <label className="search-label" htmlFor="search-input">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search..."
+          onChange={e => {
+            handleSearchChange(e);
+          }}
+        />
+
+        <i className="fa fa-search search-icon" aria-hidden="true"></i>
+      </label>
+
       <Link to="/cart">
         <button className="button">SHOPPING CART</button>
       </Link>
     </div>
   );
 }
-export default Header;
+export default withRouter(Header);

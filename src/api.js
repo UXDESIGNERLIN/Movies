@@ -1,4 +1,5 @@
 import { api_key } from "./config";
+import defaultMovie from "./Assets/default-movie.png";
 
 export const base_url = `https://api.themoviedb.org/3/`;
 
@@ -6,6 +7,12 @@ function jsonFetch(url) {
   return fetch(`${url}`).then(data => {
     return data.json();
   });
+}
+
+function imageUrl(poster_path) {
+  if (poster_path == null) {
+    return defaultMovie;
+  } else return `https://image.tmdb.org/t/p/w500/${poster_path}`;
 }
 
 export function getCatogories() {
@@ -27,7 +34,7 @@ export function getMoviesByCategoryId(categoryId) {
     .then(json => {
       return json.results.map(movie => ({
         id: movie.id,
-        image_path: `https://image.tmdb.org/t/p/w200/${movie.poster_path}`,
+        image_path: imageUrl(movie.poster_path),
         name: movie.title
       }));
     })
@@ -43,11 +50,27 @@ export function getMovieByMovieId(movieId) {
     .then(json => {
       return {
         id: json.id,
-        image_path: `https://image.tmdb.org/t/p/w500/${json.poster_path}`,
+        image_path: imageUrl(json.poster_path),
         name: json.title,
         overview: json.overview,
         release_date: json.release_date
       };
+    })
+    .catch(err => {
+      console.log("error", err);
+    });
+}
+
+export function searchMoviesByMovieName(movieName) {
+  return jsonFetch(
+    `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${api_key}&language=en-US&page=1&include_adult=false`
+  )
+    .then(json => {
+      return json.results.map(movie => ({
+        id: movie.id,
+        image_path: imageUrl(movie.poster_path),
+        name: movie.title
+      }));
     })
     .catch(err => {
       console.log("error", err);

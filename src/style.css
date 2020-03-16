@@ -8,6 +8,8 @@
 
 .page-container {
   height: 5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer {
