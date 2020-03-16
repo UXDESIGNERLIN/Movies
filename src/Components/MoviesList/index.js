@@ -36,5 +36,3 @@ class MoviesList extends Component {
 }
 
 export default MoviesList;
-
-/**console.log(this.props.history.Back()); */

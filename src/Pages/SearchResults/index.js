@@ -24,36 +24,36 @@ class SearchResults extends Component {
         entries[0].isIntersecting &&
         this.state.pageNumber <= this.state.totalPages
       ) {
-        this.setState({ pageNumber: this.state.pageNumber + 1 });
-        setTimeout(() => {
-          this.searchMovies();
-
-          window.scrollTo(0, document.getElementById("first").offsetTop);
-        }, 1000);
-        //this.searchMovies();
+        this.searchMovies();
       }
     });
     if (node) this.myRef.current.observe(node);
-    //console.log("no", node);
   }
 
   searchMovies() {
+    console.log("being called..", this.state.pageNumber);
     searchMoviesByMovieName(
       this.props.match.params.keyWords,
       this.state.pageNumber
     ).then(json => {
-      this.setState({ totalPages: json[0], movieResults: json[1] });
+      console.log("jj", json[1]);
+      this.setState({
+        totalPages: json[0],
+        movieResults: this.state.movieResults.concat(json[1]),
+        pageNumber: this.state.pageNumber + 1
+      });
     });
   }
+
   componentDidMount() {
     this.searchMovies();
   }
 
-  componentDidUpdate(prevProps) {
+  /*componentDidUpdate(prevProps) {
     if (prevProps.match.params.keyWords !== this.props.match.params.keyWords) {
       this.searchMovies();
     }
-  }
+  }*/
 
   render() {
     return (
@@ -84,7 +84,7 @@ class SearchResults extends Component {
               } else
                 return (
                   <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
-                    <div id="first" className="movies-list-card">
+                    <div className="movies-list-card">
                       <div className="image-container">
                         <img
                           className="image"
