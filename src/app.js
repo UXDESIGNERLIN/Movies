@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import Home from "./Pages/Home";
 
 import MovieDetail from "./Pages/MovieDetail";
@@ -26,14 +31,23 @@ class App extends Component {
 
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/home" component={Home} />
+              <Route exact path="/category">
+                <Redirect to="/home" />
+              </Route>
+              <Route exact path="/search">
+                <Redirect to="/home" />
+              </Route>
+              <Route exact path="/movie">
+                <Redirect to="/home" />
+              </Route>
               <Route
                 path="/category/:categoryId"
-                exact
                 component={MoviesListsContainer}
               />
-              <Route path="/movie/:movieId" exact component={MovieDetail} />
-              <Route path="/cart" exact component={Cart} />
-              <Route path="/search/:keyWords" exact component={SearchResults} />
+              <Route path="/movie/:movieId" component={MovieDetail} />
+              <Route path="/cart" component={Cart} />
+              <Route path="/search/:keyWords" component={SearchResults} />
             </Switch>
 
             <Footer />

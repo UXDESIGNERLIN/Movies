@@ -11,7 +11,7 @@ class CartRow extends Component {
     super(props);
     this.state = {
       editableQuantity: false,
-      quantityValue: null
+      quantityValue: 1
     };
 
     this.removeFromCart = this.removeFromCart.bind(this);
@@ -32,7 +32,7 @@ class CartRow extends Component {
   }
 
   handleQuantityChange(e) {
-    this.setState({ quantityValue: e.target.value });
+    e.target.value >= 1 && this.setState({ quantityValue: e.target.value });
   }
 
   saveQuantity(movieId) {

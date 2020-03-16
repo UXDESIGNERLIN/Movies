@@ -61,9 +61,9 @@ export function getMovieByMovieId(movieId) {
     });
 }
 
-export function searchMoviesByMovieName(movieName) {
+export function searchMoviesByMovieName(movieName, pageNumber) {
   return jsonFetch(
-    `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${api_key}&language=en-US&page=1&include_adult=false`
+    `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${api_key}&language=en-US&page=${pageNumber}&include_adult=false`
   )
     .then(json => {
       return json.results.map(movie => ({

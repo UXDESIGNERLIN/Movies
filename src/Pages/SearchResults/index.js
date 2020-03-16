@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { searchMoviesByMovieName } from "../../api";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import MoviesList from "../../Components/MoviesList";
 
 class SearchResults extends Component {
@@ -12,16 +12,18 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
-    searchMoviesByMovieName(this.props.match.params.keyWords).then(json => {
+    searchMoviesByMovieName(this.props.match.params.keyWords, 1).then(json => {
       this.setState({ movieResults: json });
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.match.params.keyWords !== this.props.match.params.keyWords) {
-      searchMoviesByMovieName(this.props.match.params.keyWords).then(json => {
-        this.setState({ movieResults: json });
-      });
+      searchMoviesByMovieName(this.props.match.params.keyWords, 1).then(
+        json => {
+          this.setState({ movieResults: json });
+        }
+      );
     }
   }
 
@@ -38,6 +40,4 @@ class SearchResults extends Component {
   }
 }
 
-export default SearchResults;
-
-/**console.log(this.props.history.Back()); */
+export default withRouter(SearchResults);
