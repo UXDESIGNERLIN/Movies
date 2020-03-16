@@ -17,7 +17,8 @@ class SearchResults extends Component {
     this.callBackRef = this.callBackRef.bind(this);
   }
 
-  callBackRef(node) {
+  callBackRef(node, index) {
+    if (this.state.movieResults.length !== index + 1) return;
     if (this.myRef.current) this.myRef.current.disconnect();
     this.myRef.current = new IntersectionObserver(entries => {
       if (
@@ -55,49 +56,33 @@ class SearchResults extends Component {
     }
   }*/
 
+  //if (this.state.movieResults.length === index + 1) {
+
   render() {
     return (
       <div>
         <div className="movies-list-wrapper">
           <div className="movies-list-wrapper">
             {this.state.movieResults.map((movies, index) => {
-              if (this.state.movieResults.length === index + 1) {
-                return (
-                  <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
-                    <div
-                      ref={node => this.callBackRef(node)}
-                      className="movies-list-card"
-                    >
-                      <div className="image-container">
-                        <img
-                          className="image"
-                          src={movies.image_path}
-                          alt={movies.name}
-                        />
-                      </div>
-                      <div>
-                        <p className="movies-list-name">{movies.name}</p>
-                      </div>
+              return (
+                <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
+                  <div
+                    ref={node => this.callBackRef(node, index)}
+                    className="movies-list-card"
+                  >
+                    <div className="image-container">
+                      <img
+                        className="image"
+                        src={movies.image_path}
+                        alt={movies.name}
+                      />
                     </div>
-                  </Link>
-                );
-              } else
-                return (
-                  <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
-                    <div className="movies-list-card">
-                      <div className="image-container">
-                        <img
-                          className="image"
-                          src={movies.image_path}
-                          alt={movies.name}
-                        />
-                      </div>
-                      <div>
-                        <p className="movies-list-name">{movies.name}</p>
-                      </div>
+                    <div>
+                      <p className="movies-list-name">{movies.name}</p>
                     </div>
-                  </Link>
-                );
+                  </div>
+                </Link>
+              );
             })}
           </div>
         </div>
