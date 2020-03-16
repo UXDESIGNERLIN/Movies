@@ -11,10 +11,18 @@ class MoviesList extends Component {
     return (
       <div>
         <div className="movies-list-wrapper">
-          {this.props.movies.map(movies => {
+          {this.props.movies.map((movies, index) => {
             return (
               <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
-                <div className="movies-list-card">
+                <div
+                  ref={
+                    "callBackRef" in this.props &&
+                    (node => {
+                      this.props.callBackRef(node, index);
+                    })
+                  }
+                  className="movies-list-card"
+                >
                   <div className="image-container">
                     <img
                       className="image"

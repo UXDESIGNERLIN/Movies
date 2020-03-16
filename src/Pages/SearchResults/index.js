@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { searchMoviesByMovieName } from "../../api";
 
 import { Link } from "react-router-dom";
-//import { withRouter } from "react-router-dom";
+import MoviesList from "../../Components/MoviesList";
 //import MoviesList from "../../Components/MoviesList";
 
 class SearchResults extends Component {
@@ -50,40 +50,15 @@ class SearchResults extends Component {
     this.searchMovies();
   }
 
-  /*componentDidUpdate(prevProps) {
-    if (prevProps.match.params.keyWords !== this.props.match.params.keyWords) {
-      this.searchMovies();
-    }
-  }*/
-
-  //if (this.state.movieResults.length === index + 1) {
-
   render() {
     return (
       <div>
         <div className="movies-list-wrapper">
           <div className="movies-list-wrapper">
-            {this.state.movieResults.map((movies, index) => {
-              return (
-                <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
-                  <div
-                    ref={node => this.callBackRef(node, index)}
-                    className="movies-list-card"
-                  >
-                    <div className="image-container">
-                      <img
-                        className="image"
-                        src={movies.image_path}
-                        alt={movies.name}
-                      />
-                    </div>
-                    <div>
-                      <p className="movies-list-name">{movies.name}</p>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+            <MoviesList
+              movies={this.state.movieResults}
+              callBackRef={(node, index) => this.callBackRef(node, index)}
+            />
           </div>
         </div>
       </div>
