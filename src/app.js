@@ -13,7 +13,7 @@ import Cart from "./Pages/Cart";
 import SearchResults from "./Pages/SearchResults";
 import "./style.css";
 import Footer from "./Components/Footer";
-import MoviesListsContainer from "./Pages/MoviesListsContainer";
+import MovieListContainer from "./Pages/MovieListContainer";
 
 class App extends Component {
   constructor() {
@@ -43,11 +43,11 @@ class App extends Component {
               </Route>
               <Route
                 path="/category/:categoryId"
-                component={MoviesListsContainer}
+                component={MovieListContainer}
               />
               <Route path="/movie/:movieId" component={MovieDetail} />
               <Route path="/cart" component={Cart} />
-              <Route path="/search/:keyWords" component={SearchResults} />
+              <Route path="/search/:keyWords" component={MovieListContainer} />
             </Switch>
 
             <Footer />

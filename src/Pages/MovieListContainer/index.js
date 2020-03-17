@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { getMoviesByCategoryId } from "../../api";
+import { getMoviesByCategoryId, searchMoviesByMovieName } from "../../api";
 import MoviesList from "../../Components/MoviesList";
-import { Link } from "react-router-dom";
+
 import "./style.css";
 
-class MoviesListsContainer extends Component {
+class MovieListContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,14 +24,35 @@ class MoviesListsContainer extends Component {
         entries[0].isIntersecting &&
         this.state.pageNumber <= this.state.totalPages
       ) {
-        this.getMoviesByCategoryId();
+        // console.log("categoryId" in this.props.match.params);
+        "categoryId" in this.props.match.params
+          ? this.getMoviesByCategoryId()
+          : this.searchMoviesByMovieName();
       }
     });
     if (node) this.myRef.current.observe(node);
   }
 
   componentDidMount() {
-    this.getMoviesByCategoryId();
+    console.log("scroll");
+    window.scrollTo({ top: 0 });
+    "categoryId" in this.props.match.params
+      ? this.getMoviesByCategoryId()
+      : this.searchMoviesByMovieName();
+  }
+
+  searchMoviesByMovieName() {
+    searchMoviesByMovieName(
+      this.props.match.params.keyWords,
+      this.state.pageNumber
+    ).then(json => {
+      console.log("json", json);
+      this.setState({
+        totalPages: json[0],
+        movieResults: this.state.movieResults.concat(json[1]),
+        pageNumber: this.state.pageNumber + 1
+      });
+    });
   }
 
   getMoviesByCategoryId() {
@@ -45,6 +66,18 @@ class MoviesListsContainer extends Component {
         pageNumber: this.state.pageNumber + 1
       });
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.keyWords !== this.props.match.params.keyWords) {
+      setTimeout(() => {
+        this.setState({ movieResults: [], pageNumber: 1 });
+      }, 0);
+      setTimeout(() => {
+        window.scrollTo({ top: 0 });
+        this.searchMoviesByMovieName();
+      }, 0);
+    }
   }
 
   render() {
@@ -62,4 +95,4 @@ class MoviesListsContainer extends Component {
   }
 }
 
-export default MoviesListsContainer;
+export default MovieListContainer;
