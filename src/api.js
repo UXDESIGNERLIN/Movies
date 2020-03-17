@@ -27,16 +27,19 @@ export function getCatogories() {
     });
 }
 
-export function getMoviesByCategoryId(categoryId) {
+export function getMoviesByCategoryId(categoryId, pageNumber) {
   return jsonFetch(
-    `${base_url}discover/movie?api_key=${api_key}&language=en-US&with_genres=${categoryId}`
+    `${base_url}discover/movie?api_key=${api_key}&language=en-US&with_genres=${categoryId}&page=${pageNumber}&include_adult=false`
   )
     .then(json => {
-      return json.results.map(movie => ({
-        id: movie.id,
-        image_path: imageUrl(movie.poster_path),
-        name: movie.title
-      }));
+      return [
+        json.total_pages,
+        json.results.map(movie => ({
+          id: movie.id,
+          image_path: imageUrl(movie.poster_path),
+          name: movie.title
+        }))
+      ];
     })
     .catch(err => {
       console.log("error", err);
@@ -63,7 +66,7 @@ export function getMovieByMovieId(movieId) {
 
 export function searchMoviesByMovieName(movieName, pageNumber) {
   return jsonFetch(
-    `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${api_key}&language=en-US&page=${pageNumber}&include_adult=false`
+    `${base_url}search/movie?query=${movieName}&api_key=${api_key}&language=en-US&page=${pageNumber}&include_adult=false`
   )
     .then(json => {
       return [

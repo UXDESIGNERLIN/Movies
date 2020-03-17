@@ -13,6 +13,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo({ top: 0 });
     getCatogories().then(categories => {
       this.setState({
         categories

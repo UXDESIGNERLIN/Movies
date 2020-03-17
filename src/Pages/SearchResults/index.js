@@ -32,12 +32,11 @@ class SearchResults extends Component {
   }
 
   searchMovies() {
-    console.log("being called..", this.state.pageNumber);
     searchMoviesByMovieName(
       this.props.match.params.keyWords,
       this.state.pageNumber
     ).then(json => {
-      console.log("jj", json[1]);
+      console.log("json", json);
       this.setState({
         totalPages: json[0],
         movieResults: this.state.movieResults.concat(json[1]),
@@ -48,6 +47,17 @@ class SearchResults extends Component {
 
   componentDidMount() {
     this.searchMovies();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.keyWords !== this.props.match.params.keyWords) {
+      setTimeout(() => {
+        this.setState({ movieResults: [], pageNumber: 1 });
+      }, 0);
+      setTimeout(() => {
+        this.searchMovies();
+      }, 0);
+    }
   }
 
   render() {

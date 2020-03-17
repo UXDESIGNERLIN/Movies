@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 class MoviesList extends Component {
   constructor(props) {
     super(props);
+    this.scrollToTop = this.scrollToTop.bind(this);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0 });
   }
 
   render() {
@@ -15,12 +20,7 @@ class MoviesList extends Component {
             return (
               <Link to={`/movie/${movies.id}`} key={movies.id.toString()}>
                 <div
-                  ref={
-                    "callBackRef" in this.props &&
-                    (node => {
-                      this.props.callBackRef(node, index);
-                    })
-                  }
+                  ref={node => this.props.callBackRef(node, index)}
                   className="movies-list-card"
                 >
                   <div className="image-container">

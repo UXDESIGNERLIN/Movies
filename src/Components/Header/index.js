@@ -4,20 +4,31 @@ import { Link, withRouter } from "react-router-dom";
 import "./style.css";
 
 function Header(props) {
+  // const [inputValue, setInputValue] = useState("");
+
   const handleSearchChange = e => {
     e.persist();
+    //setInputValue(e.target.value);
     setTimeout(() => {
       props.history.push(`/search/${e.target.value}`);
-    }, 100);
+    }, 0);
   };
+
+  // const clearInputValue = () => {
+  //setInputValue("");
+  //};
+
   return (
     <div className="page-container header">
       <Link to="/">
-        <button className="button">Home</button>
+        <button /*onClick={() => clearInputValue()}*/ className="button">
+          Home
+        </button>
       </Link>
 
       <label className="search-label" htmlFor="search-input">
         <input
+          //value={inputValue}
           type="text"
           id="search-input"
           placeholder="Search..."
@@ -30,7 +41,9 @@ function Header(props) {
       </label>
 
       <Link to="/cart">
-        <button className="button">SHOPPING CART</button>
+        <button /*onClick={() => clearInputValue()}*/ className="button">
+          SHOPPING CART
+        </button>
       </Link>
     </div>
   );
