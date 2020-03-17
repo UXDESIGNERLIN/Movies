@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   render() {
-    const history = createBrowserHistory({ basename: "/Movies/dist" });
+    const history = createBrowserHistory({ basename: "/Movies/dist/" });
 
     return (
       <div>
