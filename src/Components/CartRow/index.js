@@ -56,6 +56,7 @@ class CartRow extends Component {
             {this.state.editableQuantity ? (
               <>
                 <input
+                  min="1"
                   type="number"
                   className="cart-quantity"
                   onChange={e => this.handleQuantityChange(e)}

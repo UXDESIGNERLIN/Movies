@@ -10,7 +10,6 @@ import Home from "./Pages/Home";
 import MovieDetail from "./Pages/MovieDetail";
 import Header from "./Components/Header";
 import Cart from "./Pages/Cart";
-import SearchResults from "./Pages/SearchResults";
 import "./style.css";
 import Footer from "./Components/Footer";
 import MovieListContainer from "./Pages/MovieListContainer";

@@ -1,18 +1,22 @@
-//import { combineReducers } from "redux";
-
 const defaultState = {
-  moviesInCart: [
-    {
-      movieId: "",
-      movieName: "",
-      movie_image: "",
-      quantity: null
-    }
-  ]
+  moviesInCart: []
 };
 
 const movieExists = (movies, movie) => {
   return movies.find(el => el.movieId === movie.movieId);
+};
+
+const removeMovie = (movies, movie) => {
+  return movies.filter(el => el.movieId !== movie.movieId);
+};
+
+const updatePurchaseQuantity = (movies, id, quantity) => {
+  return movies.map(el => {
+    if (el.movieId === id) {
+      el.quantity = quantity;
+    }
+    return el;
+  });
 };
 
 const rootReducer = (state = defaultState.moviesInCart, action) => {
@@ -23,19 +27,10 @@ const rootReducer = (state = defaultState.moviesInCart, action) => {
       } else return [action.movie, ...state];
 
     case "REMOVE_FROM_CART":
-      let newState = state.filter(el => {
-        return el.movieId !== action.movie.movieId;
-      });
-      return newState;
+      return removeMovie(state, action.movie);
 
     case "UPDATE_QUANTITY":
-      let updateState = state.map(el => {
-        if (el.movieId === action.movieId) {
-          el.quantity = action.quantity;
-        }
-        return el;
-      });
-      return updateState;
+      return updatePurchaseQuantity(state, action.movieId, action.quantity);
 
     case "EMPTY_CART":
       return [];

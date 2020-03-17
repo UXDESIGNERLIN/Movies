@@ -24,7 +24,6 @@ class MovieListContainer extends Component {
         entries[0].isIntersecting &&
         this.state.pageNumber <= this.state.totalPages
       ) {
-        // console.log("categoryId" in this.props.match.params);
         "categoryId" in this.props.match.params
           ? this.getMoviesByCategoryId()
           : this.searchMoviesByMovieName();
@@ -34,7 +33,6 @@ class MovieListContainer extends Component {
   }
 
   componentDidMount() {
-    console.log("scroll");
     window.scrollTo({ top: 0 });
     "categoryId" in this.props.match.params
       ? this.getMoviesByCategoryId()
@@ -46,7 +44,6 @@ class MovieListContainer extends Component {
       this.props.match.params.keyWords,
       this.state.pageNumber
     ).then(json => {
-      console.log("json", json);
       this.setState({
         totalPages: json[0],
         movieResults: this.state.movieResults.concat(json[1]),

@@ -11,12 +11,11 @@ import CartRow from "../../Components/CartRow";
 class Cart extends Component {
   constructor(props) {
     super(props);
-
     this.closeCart = this.closeCart.bind(this);
   }
 
   closeCart() {
-    this.props.showCart();
+    this.props.closeCart();
   }
 
   render() {

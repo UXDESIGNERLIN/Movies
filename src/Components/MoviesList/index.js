@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 class MoviesList extends Component {
   constructor(props) {
     super(props);
-    this.scrollToTop = this.scrollToTop.bind(this);
-  }
-
-  scrollToTop() {
-    window.scrollTo({ top: 0 });
   }
 
   render() {
