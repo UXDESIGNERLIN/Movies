@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div>
         <div className="App">
-          <Router /*history={history}*/>
+          <Router basename="/Movies/dist" /*history={history}*/>
             <Header />
 
             <Switch>
