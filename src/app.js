@@ -13,6 +13,7 @@ import Cart from "./Pages/Cart";
 import "./style.css";
 import Footer from "./Components/Footer";
 import MovieListContainer from "./Pages/MovieListContainer";
+import { createBrowserHistory } from "history";
 
 class App extends Component {
   constructor() {
