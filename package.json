@@ -1,11 +1,14 @@
 {
+  "homepage": "https://UXDESIGNERLIN.github.io/Movies",
   "name": "mytheresa",
   "version": "1.0.0",
   "description": "technical test",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "chia ling ho",
   "devDependencies": {
