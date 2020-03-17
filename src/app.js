@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Pages/Home";
 
 import MovieDetail from "./Pages/MovieDetail";

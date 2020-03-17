@@ -29,7 +29,8 @@ module.exports = {
     ]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    publicPath: "/Movies/dist/"
   },
   plugins: [
     new HtmlWebPackPlugin({
