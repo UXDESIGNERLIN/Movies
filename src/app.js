@@ -22,10 +22,12 @@ class App extends Component {
   }
 
   render() {
+    const history = createBrowserHistory({ basename: "/Movies/dist" });
+
     return (
       <div>
         <div className="App">
-          <Router>
+          <Router history={history}>
             <Header />
 
             <Switch>
