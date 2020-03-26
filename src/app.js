@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Pages/Home";
 
 import MovieDetail from "./Pages/MovieDetail";
@@ -13,6 +8,7 @@ import Cart from "./Pages/Cart";
 import "./style.css";
 import Footer from "./Components/Footer";
 import MovieListContainer from "./Pages/MovieListContainer";
+import { createBrowserHistory } from "history";
 
 class App extends Component {
   constructor() {
@@ -22,10 +18,12 @@ class App extends Component {
   }
 
   render() {
+    const history = createBrowserHistory({ basename: "/Movies/dist" });
+
     return (
       <div>
         <div className="App">
-          <Router>
+          <Router history={history}>
             <Header />
 
             <Switch>
