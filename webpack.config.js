@@ -30,7 +30,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    publicPath: "/Movies/dist/"
+    publicPath: "/Movies/"
   },
   plugins: [
     new HtmlWebPackPlugin({
